@@ -1,34 +1,54 @@
 import React from "react";
 import { Button, Card, Input } from "@mui/material";
-import { useState } from "react";
-import { height } from "@mui/system";
-import { Link } from "react-router-dom";
+import { useState, useContext } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { AuthContext } from "../App";
+import { signIn } from "../lib/api/auth";
 
 const Login = () => {
+  const { isSignedIn,currentUser, setIsSignedIn, setCurrentUser } = useContext(AuthContext)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const handleSubmit =(data) => {
-    console.log(data)
+  const handleSubmit =async() => {
+    const params = {
+      email: email,
+      password: password
+    }
+    await signIn(params).then((res) => {
+      setIsSignedIn(true)
+      setCurrentUser(res.data.data)
+      console.log(res)
+    }).catch((error) => {
+      console.log(error)
+    })
   }
   return(
-    <Card onSubmit={handleSubmit} style={styles.login_form}>
-      <Input
-      style={styles.login_input}
-      placeholder="email"
-      value={email}
-      onChange={(e) => {setEmail(e.target.value)}}
-      />
-      <Input
-      style={styles.login_input}
-      placeholder="password"
-      value={password}
-      onChange={(e) => {setPassword(e.target.value)}}
-      />
-      <div style={styles.login_button}>
-        <Button type="submit" > Login</Button>
-      </div>
-      <Link to={`/register`}>新規登録</Link>
-    </Card>
+    <>
+    {
+      isSignedIn && currentUser ? (
+        <Navigate to={`/main`} />
+      ) : (
+        <Card style={styles.login_form} onSubmit={handleSubmit}>
+          <Input
+          style={styles.login_input}
+          placeholder="email"
+          value={email}
+          onChange={(e) => {setEmail(e.target.value)}}
+          />
+          <Input
+          style={styles.login_input}
+          placeholder="password"
+          value={password}
+          onChange={(e) => {setPassword(e.target.value)}}
+          />
+          <div style={styles.login_button}>
+            <Button type="submit" onClick={handleSubmit}> Login</Button>
+          </div>
+          <Link to={`/signup`}>新規登録</Link>
+        </Card>
+      )
+    }
+    </>
   )
 }
 

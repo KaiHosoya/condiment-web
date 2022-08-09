@@ -1,14 +1,51 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./views/Login";
-import Register from "./views/Register";
+import SignUp from "./views/SignUp";
+import Main from "./views/Main"
+import { getCurrentUser } from "./lib/api/auth"
+import { useState, useEffect, createContext } from "react";
 
-function App() {
+export const AuthContext = createContext()
+
+const App =() => {
+  const [loading, setLoading] = useState(true)
+  const [isSignedIn, setIsSignedIn] = useState(false)
+  const [currentUser, setCurrentUser] = useState()
+
+  // 認証済みのユーザーがいるかどうかチェック
+  // 確認できた場合はそのユーザーの情報を取得
+  const handleGetCurrentUser = async () => {
+    try {
+      const res = await getCurrentUser()
+
+      if (res?.data.isLogin === true) {
+        setIsSignedIn(true)
+        setCurrentUser(res?.data.data)
+
+        console.log(res?.data.data)
+      } else {
+        console.log("No current user")
+      }
+    } catch (err) {
+      console.log(err)
+    }
+
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    handleGetCurrentUser()
+  }, [setCurrentUser])
+
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path={`/login`} element={<Login />} />
-        <Route path={`/register`} element={<Register />} />
-      </Routes>
+      <AuthContext.Provider value={{ loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser}}>
+        <Routes>
+          <Route path={`/login`} element={<Login />} />
+          <Route path={`/signup`} element={<SignUp />} />
+          <Route path={`/main`} element={<Main />} />
+        </Routes>
+      </AuthContext.Provider>
     </BrowserRouter>
   );
 }
