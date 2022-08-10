@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./views/Login";
 import SignUp from "./views/SignUp";
 import Main from "./views/Main"
+import Book from "./views/Book";
 import { getCurrentUser } from "./lib/api/auth"
 import { useState, useEffect, createContext } from "react";
 
@@ -44,6 +45,7 @@ const App =() => {
           <Route path={`/login`} element={<Login />} />
           <Route path={`/signup`} element={<SignUp />} />
           <Route path={`/main`} element={<Main />} />
+          <Route path={`/book`} element={<Book />} />
         </Routes>
       </AuthContext.Provider>
     </BrowserRouter>
