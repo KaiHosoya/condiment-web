@@ -6,10 +6,11 @@ export const getbook = async(id) => {
   return res.data
 }
 
-export const createBook = async(id, title) => {
+export const createBook = async(id, title, image) => {
   const params = {
     id: id,
-    title: title
+    title: title,
+    image: image
   }
   await client
     .post("/books", params)
