@@ -42,7 +42,7 @@ const Main =() => {
         <div style={styles.main}>
           <h2>読んでいる本: {currentBook?.title}</h2>
           <img
-           src={currentBook.url} 
+           src={currentBook?.url} 
            alt="写真"
           />
           <h2>現在: {currentBook?.count}P</h2>
