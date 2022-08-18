@@ -26,7 +26,7 @@ const Login = () => {
     <>
     {
       isSignedIn && currentUser ? (
-        <Navigate to={`/main`} />
+        <Navigate to={`/mypage`} />
       ) : (
         <Card style={styles.login_form} onSubmit={handleSubmit}>
           <Input

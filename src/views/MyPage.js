@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { Navigate, useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../App"
 import { getbook, updatebook } from "../lib/api/book";
+import Header from "../components/Header/Header"
 
 
 const Main =() => {
@@ -28,14 +29,16 @@ const Main =() => {
    const res = updatebook(currentUser.id ,updateCount)
    setCurrentBook(res)
    alert("更新されました")
-   navigate("/main")
+   navigate("/")
   }
 
   return (
   <>
     {
       isSignedIn && currentUser ? (
-        <>
+      <>
+        <Header />
+        <div style={styles.main}>
           <h2>読んでいる本: {currentBook?.title}</h2>
           <h2>現在: {currentBook?.count}P</h2>
           <div className="updateCount">
@@ -56,12 +59,14 @@ const Main =() => {
             color="primary"
             component={Link}
             to="/book"
+            style={styles.register_button}
           >
             本を登録
           </Button>
-        </>
+        </div>
+      </>
       ) : (
-        <Navigate to="/signup" />
+        <Navigate to="/" />
       )
     }
   </>
@@ -69,3 +74,20 @@ const Main =() => {
 }
 
 export default Main
+
+const styles = {
+  main: {
+    width: "50%",
+    margin: "0 auto",
+    marginTop: 30,
+    display: "flex",
+    flexDirection: "column",
+    textAlign: "center"
+  },
+  register_button: {
+    width: "30%",
+    height: 30,
+    margin: "0 auto",
+    marginTop: 10,
+  }
+}

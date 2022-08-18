@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./views/Login";
 import SignUp from "./views/SignUp";
-import Main from "./views/Main"
+import MyPage from "./views/MyPage"
 import Book from "./views/Book";
 import NotFound from "./views/NotFound";
 import { getCurrentUser } from "./lib/api/auth"
@@ -48,7 +48,7 @@ const App =() => {
         <Routes>
           <Route path={`/`} element={<Login />} />
           <Route path={`/signup`} element={<SignUp />} />
-          <Route path={`/main`} element={<Main />} />
+          <Route path={`/mypage`} element={<MyPage />} />
           <Route path={`/book`} element={<Book />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

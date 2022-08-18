@@ -4,6 +4,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { createBook, getbook } from "../lib/api/book";
 import { AuthContext } from "../App";
 import { create } from "@mui/material/styles/createTransitions";
+import { margin } from "@mui/system";
 
 const Book = () => {
   const [bookImage, setBookImage] = useState({data: "", name: ""})
@@ -48,24 +49,32 @@ const Book = () => {
   }
 
   const backToMain = () => {
-    navigate("/main")
+    navigate("/mypage")
   }
 
   return(
   <>
     { isSignedIn && currentUser ? (
-      <div>
       <div style={styles.registerForm}>
         <Input
-        placeholder="本の名前"
-        value={bookTitle}
-        onChange={(e) => {setBookTitle(e.target.value)}}
+          placeholder="本の名前"
+          value={bookTitle}
+          onChange={(e) => {setBookTitle(e.target.value)}}
         />
-        <Button type="submit" onClick={handleSubmit}>登録</Button>
-      </div>
         <Button
-          onClick={backToMain}  
-        >戻る</Button>
+         type="submit" onClick={handleSubmit}
+         variant="outlined"
+         style={styles.submitButton}
+        >
+          登録
+        </Button>
+        <div>
+          <Button
+            onClick={backToMain}  
+          >
+            戻る
+          </Button>
+        </div>
       </div>
     ) : (
       <Navigate to="/" />
@@ -77,10 +86,15 @@ const Book = () => {
 const styles = {
   registerForm: {
     width: "50%",
-    height: "50%"
+    margin: "0 auto",
+    marginTop: 30,
+    display: "flex",
+    flexDirection: "column",
+    textAlign: "center"
   },
   submitButton: {
-
+    width: "20%",
+    margin: "0 auto"
   }
 }
 
