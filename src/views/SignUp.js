@@ -37,7 +37,7 @@ const SignUp = () => {
   return (
   <>
     { isSignedIn && currentUser ? (
-      <Navigate to="/main" />
+      <Navigate to="/mypage" />
     ) : (
     <Card style={styles.register_form}>
       <Input
