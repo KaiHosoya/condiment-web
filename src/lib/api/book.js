@@ -1,9 +1,15 @@
 import client from "./client";
 
-export const createBook = async(title, data) => {
+export const getbook = async(id) => {
+  const res = await client
+    .get(`/books/${id}`)
+  return res.data
+}
+
+export const createBook = async(id, title) => {
   const params = {
-    title: title,
-    image: data
+    id: id,
+    title: title
   }
   await client
     .post("/books", params)
@@ -14,3 +20,12 @@ export const createBook = async(title, data) => {
     })
     .catch(e => console.log(e));
 };
+
+export const updatebook = async(id, count) => {
+  const params = {
+    count: count
+  }
+  const res = await client
+    .patch(`/books/${id}`, params)
+  return res.data
+}

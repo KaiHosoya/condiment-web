@@ -1,8 +1,9 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./views/Login";
 import SignUp from "./views/SignUp";
 import Main from "./views/Main"
 import Book from "./views/Book";
+import NotFound from "./views/NotFound";
 import { getCurrentUser } from "./lib/api/auth"
 import { useState, useEffect, createContext } from "react";
 
@@ -12,6 +13,7 @@ const App =() => {
   const [loading, setLoading] = useState(true)
   const [isSignedIn, setIsSignedIn] = useState(false)
   const [currentUser, setCurrentUser] = useState()
+  const [currentBook, setCurrentBook] = useState("a")
 
   // 認証済みのユーザーがいるかどうかチェック
   // 確認できた場合はそのユーザーの情報を取得
@@ -31,6 +33,7 @@ const App =() => {
       console.log(err)
     }
 
+
     setLoading(false)
   }
 
@@ -40,12 +43,14 @@ const App =() => {
 
   return (
     <BrowserRouter>
-      <AuthContext.Provider value={{ loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser}}>
+      <AuthContext.Provider value={{ loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser }}>
+        
         <Routes>
-          <Route path={`/login`} element={<Login />} />
+          <Route path={`/`} element={<Login />} />
           <Route path={`/signup`} element={<SignUp />} />
           <Route path={`/main`} element={<Main />} />
           <Route path={`/book`} element={<Book />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthContext.Provider>
     </BrowserRouter>

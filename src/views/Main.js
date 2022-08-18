@@ -1,42 +1,64 @@
-import { Button } from "@mui/material";
-import React from "react";
+import { Alert, Button, Input } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useContext } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../App"
-import { signOut } from "../lib/api/auth";
-import Cookies from "js-cookie";
+import { getbook, updatebook } from "../lib/api/book";
 
 
 const Main =() => {
+  const { isSignedIn, currentUser } = useContext(AuthContext)
+  const [currentBook, setCurrentBook] = useState()
+  const [updateCount, setUpdateCount] = useState("")
   const navigate = useNavigate()
-  const { isSignedIn,setIsSignedIn, currentUser } = useContext(AuthContext)
-  console.log(isSignedIn, currentUser)
 
-  const handleSignOut = async (e) => {
-    await signOut().then((res) => {
-      if (res.data.success === true) {
-        // サインアウト時には各Cookieを削除
-        Cookies.remove("_access_token")
-        Cookies.remove("_client")
-        Cookies.remove("_uid")
-
-        setIsSignedIn(false)
-        navigate("/signin")
-
-        console.log("Succeeded in sign out")
-      }
-    }).catch((error) => {
-      console.log(error)
-    })
+  const getCurrentBook = async() => {
+    if (currentUser) {
+      const res = await getbook(currentUser.id)
+      setCurrentBook(res)
+    }
   }
+
+  useEffect(() => {
+    getCurrentBook();
+  }, [])
+
+  const handleUpdate = (e) => {
+    e.preventDefault()
+   const res = updatebook(currentUser.id ,updateCount)
+   setCurrentBook(res)
+   alert("更新されました")
+   navigate("/main")
+  }
+
   return (
-    <>
+  <>
     {
       isSignedIn && currentUser ? (
         <>
-          <h1>Signed in successfully!</h1>
-          <h2>Email: {currentUser?.email}</h2>
-          {/* <Button onClick={handleSignOut}>SignOut</Button> */}
+          <h2>読んでいる本: {currentBook?.title}</h2>
+          <h2>現在: {currentBook?.count}P</h2>
+          <div className="updateCount">
+            <Input
+              type="number"
+              placeholder="100"
+              value={updateCount}
+              onChange={(e) => {setUpdateCount(e.target.value)}}  
+            />
+            <Button
+              onClick={handleUpdate}
+            >
+              更新
+            </Button>
+          </div>
+          <Button
+            variant="outlined"
+            color="primary"
+            component={Link}
+            to="/book"
+          >
+            本を登録
+          </Button>
         </>
       ) : (
         <Navigate to="/signup" />

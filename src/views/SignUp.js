@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, Input, Button } from "@mui/material";
 import { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { signUp } from "../lib/api/auth";
 import { AuthContext } from "../App";
+import { getBooks } from "../lib/api/book";
 
 const SignUp = () => {
   const navigate = useNavigate()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
+  const { isSignedIn, setIsSignedIn, currentUser,setCurrentUser } = useContext(AuthContext)
   const handleSubmit =async() => {
     const params = {
       email: email,
@@ -32,7 +33,12 @@ const SignUp = () => {
       console.log(error)
     })
   }
+
   return (
+  <>
+    { isSignedIn && currentUser ? (
+      <Navigate to="/main" />
+    ) : (
     <Card style={styles.register_form}>
       <Input
       style={styles.register_input}
@@ -49,8 +55,10 @@ const SignUp = () => {
       <div style={styles.register_button}>
       <Button type="submit" onClick={handleSubmit}>新規登録</Button>
       </div>
-      <Link to={`/login`}>ログイン</Link>
+      <Link to={`/`}>ログイン</Link>
     </Card>
+    )}
+  </>
   )
 }
 
