@@ -1,10 +1,10 @@
-import { Alert, Button, Input } from "@mui/material";
+import { Button, Input } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
-import { Navigate, useNavigate, Link } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../App"
 import { getbook, updatebook } from "../lib/api/book";
-// import Header from "../components/Header/Header"
+import Header from "../components/Header/Header"
 
 
 const Main =() => {
@@ -37,7 +37,7 @@ const Main =() => {
     {
       isSignedIn && currentUser ? (
       <>
-        {/* <Header /> */}
+        <Header />
         <div style={styles.main}>
           <h2>読んでいる本: {currentBook?.title}</h2>
           <h2>現在: {currentBook?.count}P</h2>
@@ -54,7 +54,7 @@ const Main =() => {
               更新
             </Button>
           </div>
-          <Button
+          {/* <Button
             variant="outlined"
             color="primary"
             component={Link}
@@ -62,7 +62,7 @@ const Main =() => {
             style={styles.register_button}
           >
             本を登録
-          </Button>
+          </Button> */}
         </div>
       </>
       ) : (

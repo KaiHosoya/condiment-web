@@ -1,33 +1,18 @@
-import React ,{ useState } from 'react';
+import React  from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu'; 
+import SideBar from './SideBar';
 const Header = () => {  
-  const [open, setOpen] = useState(false)
-
-  const toggleFunction = () => {
-    setOpen((prevState) => !prevState)
-  }
-  console.log(open)
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            
-          >
-          <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <div id="outer-container">
+              <SideBar pageWrapId={'page-wrap'} outerContainerId={'outer-container'}/>
+          </div>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 , textAlign: "center"}} >
             読書管理
           </Typography>
         </Toolbar>
