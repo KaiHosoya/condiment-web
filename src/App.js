@@ -13,7 +13,6 @@ const App =() => {
   const [loading, setLoading] = useState(true)
   const [isSignedIn, setIsSignedIn] = useState(false)
   const [currentUser, setCurrentUser] = useState()
-  const [currentBook, setCurrentBook] = useState("a")
 
   // 認証済みのユーザーがいるかどうかチェック
   // 確認できた場合はそのユーザーの情報を取得
@@ -24,7 +23,6 @@ const App =() => {
       if (res?.data.isLogin === true) {
         setIsSignedIn(true)
         setCurrentUser(res?.data.data)
-
         console.log(res?.data.data)
       } else {
         console.log("No current user")
