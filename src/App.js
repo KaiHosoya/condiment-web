@@ -1,24 +1,57 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./views/Login";
+import SignUp from "./views/SignUp";
+import MyPage from "./views/MyPage"
+import Book from "./views/Book";
+import NotFound from "./views/NotFound";
+import { getCurrentUser } from "./lib/api/auth"
+import { useState, useEffect, createContext } from "react";
 
-function App() {
+export const AuthContext = createContext()
+
+const App =() => {
+  const [loading, setLoading] = useState(true)
+  const [isSignedIn, setIsSignedIn] = useState(false)
+  const [currentUser, setCurrentUser] = useState()
+
+  // 認証済みのユーザーがいるかどうかチェック
+  // 確認できた場合はそのユーザーの情報を取得
+  const handleGetCurrentUser = async () => {
+    try {
+      const res = await getCurrentUser()
+
+      if (res?.data.isLogin === true) {
+        setIsSignedIn(true)
+        setCurrentUser(res?.data.data)
+        console.log(res?.data.data)
+      } else {
+        console.log("No current user")
+      }
+    } catch (err) {
+      console.log(err)
+    }
+
+
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    handleGetCurrentUser()
+  }, [setCurrentUser])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <AuthContext.Provider value={{ loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser }}>
+        
+        <Routes>
+          <Route path={`/`} element={<Login />} />
+          <Route path={`/signup`} element={<SignUp />} />
+          <Route path={`/mypage`} element={<MyPage />} />
+          <Route path={`/book`} element={<Book />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AuthContext.Provider>
+    </BrowserRouter>
   );
 }
 
