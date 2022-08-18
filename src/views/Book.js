@@ -8,6 +8,7 @@ import Header from "../components/Header/Header";
 const Book = () => {
   // const [bookImage, setBookImage] = useState({data: "", name: ""})
   const [bookTitle, setBookTitle] = useState("")
+  const [bookImage, setBookImage] = useState()
 
 
   const navigate = useNavigate()
@@ -15,37 +16,37 @@ const Book = () => {
   const { isSignedIn, currentUser } = useContext(AuthContext)
 
 
-  // const handleImage = (e) => {
-	// 	const files = e.currentTarget.files;
-  //   const reader = new FileReader();
-	// 	if (!files || files?.length === 0) return;
-	// 	const file = files[0];
-  //   reader.readAsDataURL(file)
-  //   reader.onload = () => {
-  //     setBookImage({data: reader.result,
-  //                   name: file.name})
-  //   }
-  // }
-
-  // const handleSubmit = async() => {
-  //   await createBook(bookTitle, bookImage)
-  //   .then(() => {
-  //     navigate("/main")
-  //   })
-  //   .catch((error) => {
-  //     console.log(error.message)
-  //   })
-  // }
+  const handleImage = (e) => {
+		const files = e.currentTarget.files;
+    const reader = new FileReader();
+		if (!files || files?.length === 0) return;
+		const file = files[0];
+    reader.onload = () => {
+      setBookImage({data: reader.result,
+                    name: file ? file.name : "unknowenfile"})
+    }
+    reader.readAsDataURL(file)
+  }
 
   const handleSubmit = async() => {
-    await createBook(currentUser.id, bookTitle)
+    await createBook(currentUser.id ,bookTitle, bookImage)
     .then(() => {
-      navigate("/")
+      navigate("/mypage")
     })
-    .catch((e) => {
-      console.log(e)
+    .catch((error) => {
+      console.log(error.message)
     })
   }
+
+  // const handleSubmit = async() => {
+  //   await createBook(currentUser.id, bookTitle)
+  //   .then(() => {
+  //     navigate("/mypage")
+  //   })
+  //   .catch((e) => {
+  //     console.log(e)
+  //   })
+  // }
 
   const backToMain = () => {
     navigate("/mypage")
@@ -61,6 +62,14 @@ const Book = () => {
             placeholder="本の名前"
             value={bookTitle}
             onChange={(e) => {setBookTitle(e.target.value)}}
+          />
+          <Input
+            type="file"  
+            onChange={handleImage} 
+          />
+          <img
+            src={bookImage?.data} 
+            alt="写真"
           />
           <Button
           type="submit" onClick={handleSubmit}

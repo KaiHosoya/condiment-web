@@ -22,6 +22,7 @@ const Main =() => {
 
   useEffect(() => {
     getCurrentBook();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleUpdate = (e) => {
@@ -40,6 +41,10 @@ const Main =() => {
         <Header />
         <div style={styles.main}>
           <h2>読んでいる本: {currentBook?.title}</h2>
+          <img
+           src={currentBook.url} 
+           alt="写真"
+          />
           <h2>現在: {currentBook?.count}P</h2>
           <div className="updateCount">
             <Input

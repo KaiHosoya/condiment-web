@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Card, Input, Button } from "@mui/material";
 import { useState, useContext } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { signUp } from "../lib/api/auth";
 import { AuthContext } from "../App";
-import { getBooks } from "../lib/api/book";
 
 const SignUp = () => {
   const navigate = useNavigate()
@@ -27,7 +26,7 @@ const SignUp = () => {
 
         setIsSignedIn(true)
         setCurrentUser(res.data.data)
-        navigate("/main")
+        navigate("/mypage")
       }
     }).catch((error) => {
       console.log(error)
