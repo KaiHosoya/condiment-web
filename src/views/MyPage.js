@@ -22,10 +22,16 @@ const Main =() => {
    navigate("/")
   }
 
-  useEffect(() => {
-    const res = getbook(currentUser?.id)
+  const getBook = async() => {
+    const res = await getbook(currentUser?.id)
     setCurrentBook(res)
-  }, [currentUser.id])
+  }
+
+  useEffect(() => {
+    getBook()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  console.log(currentBook)
 
   return (
   <>

@@ -12,7 +12,7 @@ return (
     Chaichai
   </h3>
   <div className="footer-right">
-    <BottomNavigationAction href="https://twitter.com/chaichai_1551" label="Recents" icon={<Twitter />} />
+    <BottomNavigationAction href="https://twitter.com/intent/tweet" label="Recents" icon={<Twitter />} />
     <BottomNavigationAction label="Favorites" icon={<ShareIcon />} />
     <BottomNavigationAction label="Nearby" icon={<LocationOnOutlined />} />
   </div>
