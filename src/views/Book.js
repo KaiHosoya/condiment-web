@@ -72,6 +72,7 @@ const Book = () => {
           <img
             src={bookImage?.data} 
             alt="写真"
+            style={styles.imageResize}
           />
           <Button
           type="submit" onClick={handleSubmit}
@@ -115,6 +116,10 @@ const styles = {
   },
   backButton: {
     marginTop: 50
+  },
+  imageResize: {
+    width: 300,
+    height: 200
   }
 }
 

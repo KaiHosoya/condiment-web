@@ -6,7 +6,7 @@ const Inquiry = () => {
   return (
     <div>
       <Header />
-      <form action="mailto:chaichai.extyo@gmail.com" method="post" enctype="text/plain">
+      <form action="mailto:chaichai.extyo@gmail.com" method="post" encType="text/plain">
         <Input type="text" name="name" placeholder="名前"/>
         <p>お問合せ<br />
           <TextField
