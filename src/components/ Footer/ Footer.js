@@ -7,7 +7,7 @@ import "./Footer.css"
 
 const Footer = () => {
 return (
-<BottomNavigation className="footer" style={{backgroundColor: "80d5ff"}}>
+<BottomNavigation className="footer" style={{backgroundColor: "rgba(134, 178, 234, 0.986)"}}>
   <h3 className="footer-left">
     Chaichai
   </h3>
