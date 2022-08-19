@@ -1,30 +1,17 @@
 import { Button, Input } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useContext } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../App"
-import { getbook, updatebook } from "../lib/api/book";
+import { updatebook } from "../lib/api/book";
 import Header from "../components/Header/Header"
 import Footer from "../components/ Footer/ Footer";
 
 
 const Main =() => {
-  const { isSignedIn, currentUser } = useContext(AuthContext)
-  const [currentBook, setCurrentBook] = useState()
+  const { isSignedIn, currentUser, currentBook, setCurrentBook } = useContext(AuthContext)
   const [updateCount, setUpdateCount] = useState("")
   const navigate = useNavigate()
-
-  const getCurrentBook = async() => {
-    if (currentUser) {
-      const res = await getbook(currentUser.id)
-      setCurrentBook(res)
-    }
-  }
-
-  useEffect(() => {
-    getCurrentBook();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   const handleUpdate = (e) => {
     e.preventDefault()
@@ -41,11 +28,14 @@ const Main =() => {
       <>
         <Header />
         <div style={styles.main}>
-          <h2>読んでいる本: {currentBook?.title}</h2>
-          <img
-           src={currentBook?.url} 
-           alt="写真"
-          />
+          <h2>読んでいる本: <i>{currentBook?.title}</i></h2>
+          <div style={styles.image}>
+            <img
+            src={currentBook?.url} 
+            alt="写真"
+            style={styles.image_resize}
+            />
+          </div>
           <h2>現在: {currentBook?.count}P</h2>
           <div className="updateCount">
             <Input
@@ -87,8 +77,12 @@ const styles = {
     width: "50%",
     margin: "0 auto",
     marginTop: 30,
+    marginBottom: 250,
     display: "flex",
     flexDirection: "column",
+    textAlign: "center",
+  },
+  image: {
     textAlign: "center"
   },
   register_button: {
@@ -96,5 +90,9 @@ const styles = {
     height: 30,
     margin: "0 auto",
     marginTop: 10,
+  },
+  image_resize: {
+    width: "300px",
+    height: "200px"
   }
 }

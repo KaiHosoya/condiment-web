@@ -67,6 +67,7 @@ const Book = () => {
           <Input
             type="file"  
             onChange={handleImage} 
+            accept="image/png,image/jpeg"
           />
           <img
             src={bookImage?.data} 

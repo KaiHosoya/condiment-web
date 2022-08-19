@@ -4,8 +4,10 @@ import SignUp from "./views/SignUp";
 import MyPage from "./views/MyPage"
 import Book from "./views/Book";
 import NotFound from "./views/NotFound";
+import Inquiry from "./views/Inquiry";
 import { getCurrentUser } from "./lib/api/auth"
 import { useState, useEffect, createContext } from "react";
+import { getbook } from "./lib/api/book";
 
 export const AuthContext = createContext()
 
@@ -13,6 +15,7 @@ const App =() => {
   const [loading, setLoading] = useState(true)
   const [isSignedIn, setIsSignedIn] = useState(false)
   const [currentUser, setCurrentUser] = useState()
+  const [currentBook, setCurrentBook] = useState()
 
   // 認証済みのユーザーがいるかどうかチェック
   // 確認できた場合はそのユーザーの情報を取得
@@ -35,19 +38,33 @@ const App =() => {
     setLoading(false)
   }
 
+  const handleGetCurrentBook = async () => {
+    if (currentUser) {
+      try {
+        const res = await getbook(currentUser.id)
+        setCurrentBook(res)
+      } catch (err) {
+      console.log(err)
+    }
+  } 
+  }
+
   useEffect(() => {
     handleGetCurrentUser()
+    handleGetCurrentBook()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setCurrentUser])
 
   return (
     <BrowserRouter>
-      <AuthContext.Provider value={{ loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser }}>
+      <AuthContext.Provider value={{ loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser, currentBook, setCurrentBook }}>
         
         <Routes>
           <Route path={`/`} element={<Login />} />
           <Route path={`/signup`} element={<SignUp />} />
           <Route path={`/mypage`} element={<MyPage />} />
           <Route path={`/book`} element={<Book />} />
+          <Route path={`/inquiry`} element={<Inquiry />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthContext.Provider>
