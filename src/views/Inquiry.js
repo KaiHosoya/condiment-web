@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { TextField, Input } from "@mui/material";
 import Header from "../components/Header/Header";
+import { Navigate } from "react-router-dom";
+import { AuthContext } from "../App";
 
 const Inquiry = () => {
+  const { currentUser, isSignedIn } = useContext(AuthContext)
+
   return (
+  <>
+    { currentUser && isSignedIn ? (
     <div>
       <Header />
       <form action="mailto:chaichai.extyo@gmail.com" method="post" encType="text/plain">
@@ -18,9 +24,13 @@ const Inquiry = () => {
           >
           </TextField>
         </div>
-        <p><Input type="submit" value="送信" /></p>
+        <Input type="submit" value="送信" />
       </form>
     </div>
+    ) : (
+      <Navigate to="/" />
+    )}
+  </>
   )
 }
 

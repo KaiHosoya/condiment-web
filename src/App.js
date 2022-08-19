@@ -7,7 +7,6 @@ import NotFound from "./views/NotFound";
 import Inquiry from "./views/Inquiry";
 import { getCurrentUser } from "./lib/api/auth"
 import { useState, useEffect, createContext } from "react";
-import { getbook } from "./lib/api/book";
 
 export const AuthContext = createContext()
 
@@ -38,20 +37,19 @@ const App =() => {
     setLoading(false)
   }
 
-  const handleGetCurrentBook = async () => {
-    if (currentUser) {
-      try {
-        const res = await getbook(currentUser.id)
-        setCurrentBook(res)
-      } catch (err) {
-      console.log(err)
-    }
-  } 
-  }
+  // const handleGetCurrentBook = async () => {
+  //   if (currentUser) {
+  //     try {
+  //       const res = await getbook(currentUser.id)
+  //       setCurrentBook(res)
+  //     } catch (err) {
+  //     console.log(err)
+  //   }
+  // } 
+  // }
 
   useEffect(() => {
     handleGetCurrentUser()
-    handleGetCurrentBook()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setCurrentUser])
 

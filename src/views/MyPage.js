@@ -1,16 +1,17 @@
 import { Button, Input } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../App"
-import { updatebook } from "../lib/api/book";
+import { getbook, updatebook } from "../lib/api/book";
 import Header from "../components/Header/Header"
 import Footer from "../components/ Footer/ Footer";
 
 
 const Main =() => {
-  const { isSignedIn, currentUser, currentBook, setCurrentBook } = useContext(AuthContext)
+  const { isSignedIn, currentUser } = useContext(AuthContext)
   const [updateCount, setUpdateCount] = useState("")
+  const [currentBook, setCurrentBook] = useState("")
   const navigate = useNavigate()
 
   const handleUpdate = (e) => {
@@ -21,13 +22,10 @@ const Main =() => {
    navigate("/")
   }
 
-  // useEffect(() => {
-  //   if (currentUser) {
-  //     const res = getbook(currentUser?.id)
-  //     setCurrentBook(res)
-  //   }
-  // })
-  // console.log(currentBook)
+  useEffect(() => {
+    const res = getbook(currentUser?.id)
+    setCurrentBook(res)
+  }, [currentUser.id])
 
   return (
   <>
