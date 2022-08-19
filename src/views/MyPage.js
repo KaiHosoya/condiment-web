@@ -5,6 +5,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../App"
 import { getbook, updatebook } from "../lib/api/book";
 import Header from "../components/Header/Header"
+import Footer from "../components/ Footer/ Footer";
 
 
 const Main =() => {
@@ -69,6 +70,7 @@ const Main =() => {
             本を登録
           </Button> */}
         </div>
+        <Footer />
       </>
       ) : (
         <Navigate to="/" />

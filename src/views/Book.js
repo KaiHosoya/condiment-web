@@ -4,6 +4,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { createBook } from "../lib/api/book";
 import { AuthContext } from "../App";
 import Header from "../components/Header/Header";
+import Footer from "../components/ Footer/ Footer";
 
 const Book = () => {
   // const [bookImage, setBookImage] = useState({data: "", name: ""})
@@ -80,12 +81,15 @@ const Book = () => {
           </Button>
           <div>
             <Button
-              onClick={backToMain}  
+              onClick={backToMain}
+              style={styles.backButton}
             >
               戻る
             </Button>
           </div>
         </div>
+        {/* #コンテンツ量が少ない時の対応 */}
+        <Footer />
       </div>
     ) : (
       <Navigate to="/" />
@@ -105,7 +109,11 @@ const styles = {
   },
   submitButton: {
     width: "20%",
-    margin: "0 auto"
+    margin: "0 auto",
+    marginTop: 425
+  },
+  backButton: {
+    marginTop: 50
   }
 }
 
