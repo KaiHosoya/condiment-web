@@ -1,9 +1,9 @@
 import { Button, Input } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useContext } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../App"
-import { getbook, updatebook } from "../lib/api/book";
+import { updatebook } from "../lib/api/book";
 import Header from "../components/Header/Header"
 import Footer from "../components/ Footer/ Footer";
 
@@ -21,13 +21,13 @@ const Main =() => {
    navigate("/")
   }
 
-  useEffect(() => {
-    if (currentUser) {
-      const res = getbook(currentUser?.id)
-      setCurrentBook(res)
-    }
-  })
-  console.log(currentBook)
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     const res = getbook(currentUser?.id)
+  //     setCurrentBook(res)
+  //   }
+  // })
+  // console.log(currentBook)
 
   return (
   <>

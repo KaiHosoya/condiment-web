@@ -8,7 +8,7 @@ const Inquiry = () => {
       <Header />
       <form action="mailto:chaichai.extyo@gmail.com" method="post" encType="text/plain">
         <Input type="text" name="name" placeholder="名前"/>
-        <p>お問合せ<br />
+        <div>お問合せ
           <TextField
             id="filled-multiline-static"
             multiline
@@ -17,7 +17,7 @@ const Inquiry = () => {
             variant="filled"
           >
           </TextField>
-        </p>
+        </div>
         <p><Input type="submit" value="送信" /></p>
       </form>
     </div>
