@@ -31,7 +31,7 @@ const Main =() => {
   useEffect(() => {
     getBook()
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [currentUser.id])
   console.log(currentBook)
 
   return (
