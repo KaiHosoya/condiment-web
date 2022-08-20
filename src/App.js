@@ -7,6 +7,7 @@ import NotFound from "./views/NotFound";
 import Inquiry from "./views/Inquiry";
 import { getCurrentUser } from "./lib/api/auth"
 import { useState, useEffect, createContext } from "react";
+import Summary from "./views/Summary";
 
 export const AuthContext = createContext()
 
@@ -63,6 +64,7 @@ const App =() => {
           <Route path={`/mypage`} element={<MyPage />} />
           <Route path={`/book`} element={<Book />} />
           <Route path={`/inquiry`} element={<Inquiry />} />
+          <Route path={`/summary`} element={<Summary />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthContext.Provider>

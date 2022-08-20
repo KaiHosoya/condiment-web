@@ -6,6 +6,15 @@ export const getbook = async(id) => {
   return res.data
 }
 
+export const getbooks = async(id) => {
+  const params = {
+    id: id
+  }
+  const res = await client
+    .get(`/books`, params)
+  return res
+}
+
 export const createBook = async(id, title, image) => {
   const params = {
     id: id,

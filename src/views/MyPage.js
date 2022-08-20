@@ -24,7 +24,8 @@ const Main =() => {
 
   const getBook = async() => {
     const res = await getbook(currentUser?.id)
-    setCurrentBook(res)
+    const activeBook = res.find((v) => v.active === true)
+    setCurrentBook(activeBook)
   }
 
   useEffect(() => {

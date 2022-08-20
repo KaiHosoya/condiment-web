@@ -13,6 +13,12 @@ export default props => {
       <Link to="/book">
         本を登録する
       </Link>
+      <Link to="/summary">
+        サマリー
+      </Link>
+      <Link to="/inquiry">
+        お問い合わせ
+      </Link>
     </Menu>
   )
 }
