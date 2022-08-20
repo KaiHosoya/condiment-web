@@ -5,6 +5,7 @@ import { getbook } from "../lib/api/book";
 import { List, ListItemButton, ListItemIcon, ListItemText, Card } from "@mui/material";
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import Header from "../components/Header/Header";
+import Footer from "../components/ Footer/ Footer";
 
 const Summary = () => {
   const {currentUser, isSignedIn } = useContext(AuthContext)
@@ -26,10 +27,10 @@ const Summary = () => {
         <>
           <Header />
           <Card style={styles.list}>
-            {Books.map((book, i) => {
+            {Books?.map((book, i) => {
               return(
                 // <p key={i}>タイトル： {book.title}</p>
-                <List>
+                <List key={i}>
                   <ListItemButton>
                     <ListItemIcon>
                       <MenuBookIcon />
@@ -42,6 +43,7 @@ const Summary = () => {
               )
             })}
           </Card>
+          <Footer />
         </>
       ) : (
         <Navigate to="/" />

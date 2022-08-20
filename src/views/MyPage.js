@@ -24,7 +24,7 @@ const Main =() => {
 
   const getBook = async() => {
     const res = await getbook(currentUser?.id)
-    const activeBook = res.find((v) => v.active === true)
+    const activeBook = res?.find((v) => v.active === true)
     setCurrentBook(activeBook)
   }
 
